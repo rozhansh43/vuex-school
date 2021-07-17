@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <product-List />
+    <ProductList />
 
     <hr>
-    
-    <shopping-Cart />
+
+    <ShoppingCart />
 
     <router-view />
   </div>
@@ -16,8 +16,7 @@ import ProductList from '@/components/ProductList'
 import ShoppingCart from '@/components/ShoppingCart'
 
 export default {
-  name: 'app',
-  component: {
+  components: {
     ProductList,
     ShoppingCart
   }
