@@ -10,35 +10,49 @@ export default new Vuex.Store({
     cart: []
   },
   getters: {
-    availableProducts (state, getters) {
+    availableProducts (state, ) {
       return state.products.filter(product => product => product.inventory > 0)
-    }
-  },
-  mutations: {
-    setProducts (state,products) {
-      state.products = products
     }
   },
   actions: {
     fetchProducts ({commit}) {
-      return new promise ((resolve,reject) => {
+      return new Promise ((resolve,reject) => {
         shop.getProducts ( products => {
           commit ('setProducts', products)
           resolve ()
         })
       })
     },
+
     addProductToCart (context, product) {
       if (product.inventory > 0) {
         const cartItem = context.state.cart.find(item => item.id === product.id )
-        if (!carIitem) {
+        if (!cartItem) {
           context.commit ('pushProductToCart', product) 
         }else {
           context.commit('increamentItemQuantitiy', cartItem)
         }
+        context.commit('decrementProductInventory', product)
       }
      
     }
+  },
+  mutations: {
+    setProducts (state,products) {
+      state.products = products
+    },
+    pushProductToCart (state, productId) {
+      state.cart.push ({
+        id: productId,
+        quantity: 1
+      })
+    }
+  },
+  incrementItemQuantity (state, cartItem) {
+    cartItem.quantitiy++
+  },
+  decrementProductInventory (state, product) {
+    product.inventory--
   },
   modules: {},
 });

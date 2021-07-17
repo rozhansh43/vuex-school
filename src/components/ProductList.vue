@@ -33,6 +33,11 @@ export default {
       return $store.getters.availableProducts
     }
   },
+  methods: {
+    addProductToCart (product) {
+      this.$store.dispatch('addProductToCart', product)
+    }
+  },
   created () {
     this.loading = true
     store.dispatch('fetchProducts')
