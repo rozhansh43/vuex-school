@@ -1,12 +1,28 @@
 <template>
   <div id="app">
-    <!-- <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div> -->
+    <product-List />
+
+    <hr>
+    
+    <shopping-Cart />
+
     <router-view />
   </div>
 </template>
+
+<script>
+
+import ProductList from '@/components/ProductList'
+import ShoppingCart from '@/components/ShoppingCart'
+
+export default {
+  name: 'app',
+  component: {
+    ProductList,
+    ShoppingCart
+  }
+}
+</script>
 
 <style>
 #app {
