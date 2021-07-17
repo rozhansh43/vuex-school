@@ -5,15 +5,17 @@
     </h1>
 
     <img 
-    v-if="loaded"
+    v-if="loading"
     src="https://i.imgur.com/JfPpwOA.gif" 
-    alt=""
     >
 
     <ul v-else>
       <li v-for="product in products" :key="product.id">
         {{ product.title }} - {{ product.price | currency }} - {{ product.inventory }}
-        <button @click="addProductToCart(product)">
+        <button 
+        @click="addProductToCart(product)"
+        :disabled="!productIsInStock(product) > 0" 
+        >
           add to cart
         </button>
       </li>
@@ -33,7 +35,10 @@ export default {
   },
   computed: {
     products () {
-      return store.getters.availableProducts
+      return this.$store.state.products
+    },
+    productIsInStock () {
+      return this.getters.productIsInStock
     }
   },
   methods: {
